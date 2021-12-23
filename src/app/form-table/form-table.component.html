@@ -1,6 +1,8 @@
 <div class="grid">
   <ng-container *ngFor="let c of columns">
     <div class="{{c.headerOuterClass}}">
-      <div class="{{c.headerInnerClass}}">{{c.label}}</div></div>
+      <div class="{{c.headerInnerClass}}">{{c.label}}</div>
+    </div>
   </ng-container>
+  <ng-content></ng-content>
 </div>

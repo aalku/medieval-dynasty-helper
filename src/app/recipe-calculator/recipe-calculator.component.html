@@ -6,24 +6,23 @@
   <form-vr label="Item count" valueContainerClass="text-right">9</form-vr>
 </form-group>
 
-<br />
-<h3>new table</h3>
-<form-table
-    headerInnerClass="shadow-1 p-2 surface-300"
-    cellInnerClass=  "shadow-1 p-2 text-left"
-    headerOuterClass="col-4 px-1 py-1 text-center"
-    cellOuterClass=  "col-4 px-1 py-1">
-  <form-tc key="ingredient" label="Ingredient"></form-tc>
-  <form-tc key="quantity" label="Quantity"></form-tc>
-  <form-tc key="costPerItem" label="Cost per item"></form-tc>
-  <form-tr>
-    <form-td>A</form-td>
-    <form-td>B</form-td>
-    <form-td>C</form-td>
-  </form-tr>
-</form-table>
+<form-group title="Ingredients">
+  <form-table headerInnerClass="shadow-1 p-2 surface-300" cellInnerClass="shadow-1 p-2 text-left"
+    headerOuterClass="col-4 px-1 py-1 text-center" cellOuterClass="col-4 px-1 py-1">
+    <!-- Columns -->
+    <form-tc key="ingredient" label="Ingredient"></form-tc>
+    <form-tc key="quantity" label="Quantity"></form-tc>
+    <form-tc key="costPerItem" label="Cost per item"></form-tc>
+    <!-- Rows -->
+    <form-tr>
+      <form-td>A</form-td>
+      <form-td>B</form-td>
+      <form-td>C</form-td>
+    </form-tr>
+  </form-table>
+</form-group>
 
-<br />
+<span style="display: none;">
 <h3>old table</h3>
 <div class="grid">
   <div class="col-4 px-1 py-1 text-center">
@@ -47,6 +46,7 @@
     <div class="col-4 px-1 py-1 text-right">
       <div class="shadow-1 p-2">2 x 2 = 4</div></div>
 </div>
+</span>
 
 <form-group title="Production information">
   <form-vr label="Base price" valueContainerClass="text-right">50 x 9 = 41</form-vr>

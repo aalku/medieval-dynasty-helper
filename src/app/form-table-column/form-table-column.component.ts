@@ -18,6 +18,8 @@ export class FormTableColumnComponent implements OnInit {
 
   private _headerInnerClass!: string;
   private _headerOuterClass!: string;
+  private _cellInnerClass!: string;
+  private _cellOuterClass!: string;
 
   @Input()
   get headerInnerClass(): string {
@@ -33,6 +35,21 @@ export class FormTableColumnComponent implements OnInit {
   }
   set headerOuterClass(value: string) {
     this._headerOuterClass = value;
+  }
+  @Input()
+  get cellInnerClass(): string {
+    return this._cellInnerClass || this.table?.cellInnerClass || "";
+  }
+  set cellInnerClass(value: string) {
+    this._cellInnerClass = value;
+  }
+
+  @Input()
+  get cellOuterClass(): string {
+    return this._cellOuterClass || this.table?.cellOuterClass || "";
+  }
+  set cellOuterClass(value: string) {
+    this._cellOuterClass = value;
   }
 
 
