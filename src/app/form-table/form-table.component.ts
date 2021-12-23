@@ -43,13 +43,14 @@ export class FormTableComponent implements AfterContentInit {
           named = true;
         }
         // Once we see a name we can't use c<number> anymore
-        var key : string | null = cell.key || (!named ? "c" + cn : null);
+        var key : string | null = cell.key || (!named ? this.columns.get(cn - 1)?.key || null : null);
         if (key == null) {
           throw new Error(`No column key for cell ${rn}:${cn} (counting from 1:1) after a cell with a column key`);
         }
         cell.setRow(row);
         cell.setColumn(this._indexedColumns[key]);
-        console.log("cell", cell);
+        console.log("cell", key, cell);
+        cn++;
       }
       rn++;
     }
