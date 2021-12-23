@@ -1,23 +1,31 @@
 <h2>Medieval Dynasty Recipe Calculator</h2>
 <p>This calculator will help you calculate the amount of materials you need to craft a certain item.</p>
 
-<h5 class="mb-3">Recipe input information</h5>
-<div class="grid px-3 pt-0">
+<form-group title="Recipe input information">
+  <form-vr label="Recipe name">Fabada</form-vr>
+  <form-vr label="Item count" valueContainerClass="text-right">9</form-vr>
+</form-group>
 
-  <div class="col-6 px-1 py-1">
-    <div class="shadow-1 p-2 surface-300">Recipe name</div></div>
-  <div class="col-6 px-1 py-1">
-    <div class="shadow-1 p-2">Fabada</div></div>
-  <div class="col-6 px-1 py-1">
-    <div class="shadow-1 p-2 surface-300">Item count</div></div>
-  <div class="col-6 px-1 py-1">
-    <div class="shadow-1 p-2">9</div></div>
+<br />
+<h3>new table</h3>
+<form-table
+    headerInnerClass="shadow-1 p-2 surface-300"
+    cellInnerClass=  "shadow-1 p-2 text-left"
+    headerOuterClass="col-4 px-1 py-1 text-center"
+    cellOuterClass=  "col-4 px-1 py-1">
+  <form-tc key="ingredient" label="Ingredient"></form-tc>
+  <form-tc key="quantity" label="Quantity"></form-tc>
+  <form-tc key="costPerItem" label="Cost per item"></form-tc>
+  <form-tr>
+    <form-td>A</form-td>
+    <form-td>B</form-td>
+    <form-td>C</form-td>
+  </form-tr>
+</form-table>
 
-</div>
-
-<h5 class="mb-3">Ingredients</h5>
-<div class="grid px-3 pt-0">
-
+<br />
+<h3>old table</h3>
+<div class="grid">
   <div class="col-4 px-1 py-1 text-center">
     <div class="shadow-1 p-2 surface-300">Ingredient</div></div>
   <div class="col-4 px-1 py-1 text-center">
@@ -40,22 +48,8 @@
       <div class="shadow-1 p-2">2 x 2 = 4</div></div>
 </div>
 
-<h5 class="mb-3">Production information</h5>
-<div class="grid px-3 pt-0">
-
-  <div class="col-6 px-1 py-1 text-left">
-    <div class="shadow-1 p-2 surface-300">Base price</div></div>
-  <div class="col-6 px-1 py-1 text-right">
-    <div class="shadow-1 p-2">50 x 9 = 41</div></div>
-
-  <div class="col-6 px-1 py-1 text-left">
-      <div class="shadow-1 p-2 surface-300">Sell price</div></div>
-  <div class="col-6 px-1 py-1 text-right">
-      <div class="shadow-1 p-2">(50 x 9) / 2 = 20.5</div></div>
-
-  <div class="col-6 px-1 py-1 text-left">
-    <div class="shadow-1 p-2 surface-300">Ingredients cost</div></div>
-  <div class="col-6 px-1 py-1 text-right">
-    <div class="shadow-1 p-2">10 x 9 = 90</div></div>
-
-</div>
+<form-group title="Production information">
+  <form-vr label="Base price" valueContainerClass="text-right">50 x 9 = 41</form-vr>
+  <form-vr label="Sell price" valueContainerClass="text-right">(50 x 9) / 2 = 20.5</form-vr>
+  <form-vr label="Ingredients cost" valueContainerClass="text-right">10 x 9 = 90</form-vr>
+</form-group>
