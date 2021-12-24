@@ -2,8 +2,10 @@
 p-button {
     margin-right: .5em;
 }
-div.form-vr .p-inputtext {
+div.form-vr .p-inputtext, div.form-cell .p-inputtext {
   padding: 0!important;
+  border: 0 none!important;
+  width: 100%!important;
 }
 div.form-vr .p-dropdown {
   border: 0 none!important;
