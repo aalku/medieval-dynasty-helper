@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { RecipesService } from '../recipes.service';
 
@@ -26,10 +27,12 @@ interface RecipeItem {
 })
 export class RecipeCalculatorComponent implements OnInit {
 
-  recipeGroups: RecipeGroup[] = [];
-  recipesOfSelectedGroup!: Recipe[];
   private _selectedRecipeGroup!: RecipeGroup;
   private _selectedRecipe!: Recipe;
+  private _quantityEdited: string = "";
+  quantityDisplay: string = "1";
+  recipeGroups: RecipeGroup[] = [];
+  recipesOfSelectedGroup!: Recipe[];
   selectedRecipeIngredients!: RecipeItem[];
   constructor(private recipesService: RecipesService) {}
 
@@ -81,5 +84,41 @@ export class RecipeCalculatorComponent implements OnInit {
     this.eventRecipeSelected();
   }
 
+  public get quantityEdited(): string {
+    return this._quantityEdited;
+  }
+  public set quantityEdited(value: string) {
+    if (this._quantityEdited != value) {
+      this._quantityEdited = value;
+      console.log("quantityEdited: " + this._quantityEdited);
+      this.recalculate(true, null);
+    }
+  }
 
+  recalculate(quantityEdited: boolean, ingredientEdited: string | null) {
+    console.log("recalculate: ", quantityEdited, ingredientEdited);
+    var quantity !: number;
+    if (quantityEdited) {
+      if (ingredientEdited) {
+        throw new Error("quantityEdited and ingredientEdited cannot both be true");
+      } else {
+        quantity = Number.parseFloat(this.quantityEdited);
+      }
+    } else if (!ingredientEdited) {
+      this.quantityDisplay = "1";
+      quantity = 1;
+    } else {
+      quantity = 99;
+      // TODO calculate quantity from edited ingredient
+      this.quantityDisplay = "" + quantity;
+    }
+    // TODO calculate quantity for each ingredient
+    for (let ri of this.selectedRecipeIngredients) {
+      if (ri.quantitySet) {
+        // Nothing to do
+      } else {
+        ri.calculatedQuantity = "" + (ri.quantity * quantity);
+      }
+    }
+  }
 }

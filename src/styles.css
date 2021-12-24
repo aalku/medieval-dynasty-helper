@@ -5,6 +5,11 @@
 .p-dropdown .p-dropdown-trigger {
   width: min(3vw, 1.5em)!important;
 }
+div.rw-input-edited {
+  background-color: #ccffcc!important;
+  padding: 0.5rem; /* same as container */
+  margin: -0.5rem; /* inverse of padding */
+}
 div.grid {
   margin: 0!important;
 }

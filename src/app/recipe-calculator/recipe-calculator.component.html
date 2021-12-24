@@ -4,7 +4,7 @@
 <form-group title="Recipe input information">
   <form-vr label="Recipe group"><p-dropdown scrollHeight="400px" [options]="recipeGroups" [(ngModel)]="selectedRecipeGroup" optionLabel="label"></p-dropdown></form-vr>
   <form-vr label="Recipe name"> <p-dropdown scrollHeight="400px" [options]="recipesOfSelectedGroup" [(ngModel)]="selectedRecipe" optionLabel="label"></p-dropdown></form-vr>
-  <form-vr label="Item count" valueContainerClass="text-right">9</form-vr>
+  <form-vr label="Item count" valueContainerClass="text-right"><rw-input defaultValue="{{quantityDisplay}}" [(editedValue)]="quantityEdited"></rw-input></form-vr>
 </form-group>
 
 <form-group title="Ingredients">

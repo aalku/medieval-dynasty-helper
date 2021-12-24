@@ -6,12 +6,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
+
 import { FormGroupComponent } from './form-x/form-group/form-group.component';
 import { FormVerticalRowComponent } from './form-x/form-vertical-row/form-vertical-row.component';
 import { FormTableComponent } from './form-x/form-table/form-table.component';
 import { FormTableRowComponent } from './form-x/form-table-row/form-table-row.component';
 import { FormTableCellComponent } from './form-x/form-table-cell/form-table-cell.component';
 import { FormTableColumnComponent } from './form-x/form-table-column/form-table-column.component';
+import { RwInputComponent } from './form-x/rw-input/rw-input.component';
+
 import {InputTextModule} from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import {DropdownModule} from 'primeng/dropdown';
@@ -31,7 +34,8 @@ const appRoutes: Routes = [
     FormTableComponent,
     FormTableRowComponent,
     FormTableCellComponent,
-    FormTableColumnComponent
+    FormTableColumnComponent,
+    RwInputComponent
   ],
   imports: [
     BrowserModule,
