@@ -34,7 +34,7 @@ export class RecipeCalculatorComponent implements OnInit {
   constructor(private recipesService: RecipesService) {}
 
   trackItem(index: number, _item: RecipeItem): any {
-    return index;
+    return index + _item.toString();
   }
 
   eventRecipeSelected() {

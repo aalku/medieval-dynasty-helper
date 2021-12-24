@@ -14,7 +14,7 @@ export class FormTableComponent implements AfterContentInit {
   @Input() cellInnerClass: string = "";
   @Input() cellOuterClass: string = "";
   @ContentChildren(FormTableColumnComponent) columns!: QueryList<FormTableColumnComponent>;
-  @ContentChildren(FormTableRowComponent) rows!: QueryList<FormTableRowComponent>;
+  @ContentChildren(FormTableRowComponent, {descendants: true}) rows!: QueryList<FormTableRowComponent>;
   private _indexedColumns: { [name: string]: FormTableColumnComponent } = {};
 
   constructor() { }

@@ -30,18 +30,11 @@ export class FormTableRowComponent implements OnInit {
     this._cellOuterClass = value;
   }
 
-  @ContentChildren(FormTableCellComponent) cells: FormTableCellComponent[] = [];
+  @ContentChildren(FormTableCellComponent, {descendants: true}) cells: FormTableCellComponent[] = [];
 
   constructor(private el: ElementRef, private renderer: Renderer2) { }
 
   ngOnInit(): void {
-    /* Remove the component tag */
-    const parentElement = this.el.nativeElement.parentElement;
-    const element = this.el.nativeElement;
-    for (let c of [...element.children]) {
-      this.renderer.appendChild(parentElement, c);
-    }
-    this.renderer.removeChild(parentElement, element);
   }
 
 }

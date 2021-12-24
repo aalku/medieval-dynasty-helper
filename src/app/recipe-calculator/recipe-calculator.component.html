@@ -16,7 +16,7 @@
     <form-tc key="costPerItem" label="Cost per item" cellInnerClass="text-right"></form-tc>
 
     <!-- Rows -->
-    <ng-container *ngFor="let item of selectedRecipeIngredients; trackBy:trackItem">
+    <ng-container *ngFor="let item of selectedRecipeIngredients; trackBy:trackItem" >
       <form-tr>
         <form-td>{{item.label}}</form-td><form-td>{{item.quantity}}</form-td><form-td>X</form-td>
       </form-tr>
