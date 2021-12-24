@@ -2,6 +2,9 @@
 .p-component, .p-inputtext, p.dropdown {
   font-size: min(3vw, 1em)!important;
 }
+.p-dropdown .p-dropdown-trigger {
+  width: min(3vw, 1.5em)!important;
+}
 div.grid {
   margin: 0!important;
 }

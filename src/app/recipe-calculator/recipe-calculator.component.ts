@@ -49,14 +49,19 @@ export class RecipeCalculatorComponent implements OnInit {
   eventRecipeGroupSelected() {
     let x = [];
     for (let rid of  this.recipesService.getRecipeIds(this.selectedRecipeGroup.id)) {
-      x.push({group: this.selectedRecipeGroup.id, id: rid, label: this.recipesService.getRecipeName(this.selectedRecipeGroup.id, rid)});
+      x.push(
+        {
+          group: this.selectedRecipeGroup.id,
+          id: rid,
+          label: this.recipesService.getRecipeName(this.selectedRecipeGroup.id, rid)});
     }
     this.recipesOfSelectedGroup = x;
   }
 
   ngOnInit(): void {
     for (let rg of  this.recipesService.getRecipeGroupIds()) {
-      this.recipeGroups.push({id: rg, label: this.recipesService.getRecipeGroupName(rg)});
+      this.recipeGroups.push({id: rg, label: this.recipesService.getRecipeGroupName(rg)
+        .replace(/^\s*Food - /, '')});
     }
   }
 
