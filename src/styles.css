@@ -2,3 +2,15 @@
 p-button {
     margin-right: .5em;
 }
+div.form-vr .p-inputtext {
+  padding: 0!important;
+}
+div.form-vr .p-dropdown {
+  border: 0 none!important;
+  width: 100%!important;
+  text-align: center!important;
+}
+div.form-vr .p-dropdown-item {
+  padding-top: 0.3em!important;
+  padding-bottom: 0.3em!important;
+}

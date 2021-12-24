@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, AfterViewInit,  Renderer2 } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, AfterViewInit,  Renderer2, ChangeDetectorRef } from '@angular/core';
 import { FormTableColumnComponent } from '../form-table-column/form-table-column.component';
 import { FormTableRowComponent } from '../form-table-row/form-table-row.component';
 
@@ -16,9 +16,11 @@ export class FormTableCellComponent implements OnInit, AfterViewInit {
 
   setColumn(column: FormTableColumnComponent) {
     this.column = column;
+    this.cd.detectChanges();
   }
   setRow(row: FormTableRowComponent) {
     this.row = row;
+    this.cd.detectChanges();
   }
   @Input()
   get cellInnerClass(): string {
@@ -36,7 +38,7 @@ export class FormTableCellComponent implements OnInit, AfterViewInit {
   }
 
 
-  constructor(private el: ElementRef, private renderer: Renderer2) { }
+  constructor(private el: ElementRef, private renderer: Renderer2, private cd: ChangeDetectorRef) { }
 
   ngAfterViewInit() {
       /* Remove the component tag */

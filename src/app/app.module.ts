@@ -12,6 +12,9 @@ import { FormTableComponent } from './form-table/form-table.component';
 import { FormTableRowComponent } from './form-table-row/form-table-row.component';
 import { FormTableCellComponent } from './form-table-cell/form-table-cell.component';
 import { FormTableColumnComponent } from './form-table-column/form-table-column.component';
+import {InputTextModule} from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+import {DropdownModule} from 'primeng/dropdown';
 
 const appRoutes: Routes = [
   { path: 'recipe-calculator', component: RecipeCalculatorComponent },
@@ -37,7 +40,10 @@ const appRoutes: Routes = [
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     ),
-    ButtonModule
+    FormsModule,
+    ButtonModule,
+    InputTextModule,
+    DropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

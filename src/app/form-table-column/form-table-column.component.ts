@@ -38,7 +38,6 @@ export class FormTableColumnComponent implements OnInit {
   }
   @Input()
   get cellInnerClass(): string {
-    console.log("column get cellInnerClass", this._cellInnerClass, this.table?.cellInnerClass);
     return this._cellInnerClass || this.table?.cellInnerClass || "";
   }
   set cellInnerClass(value: string) {

@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, Input, QueryList } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, Input, QueryList } from '@angular/core';
 import { FormTableColumnComponent } from '../form-table-column/form-table-column.component';
 import { FormTableRowComponent } from '../form-table-row/form-table-row.component';
 
@@ -12,8 +12,8 @@ export class FormTableComponent implements AfterContentInit {
   @Input() headerOuterClass: string = "";
   @Input() cellInnerClass: string = "";
   @Input() cellOuterClass: string = "";
-  @ContentChildren(FormTableColumnComponent) columns: QueryList<FormTableColumnComponent> = new QueryList<FormTableColumnComponent>();
-  @ContentChildren(FormTableRowComponent) rows: QueryList<FormTableRowComponent> = new QueryList<FormTableRowComponent>();
+  @ContentChildren(FormTableColumnComponent) columns!: QueryList<FormTableColumnComponent>;
+  @ContentChildren(FormTableRowComponent) rows!: QueryList<FormTableRowComponent>;
   private _indexedColumns: { [name: string]: FormTableColumnComponent } = {};
 
   constructor() { }
@@ -54,5 +54,8 @@ export class FormTableComponent implements AfterContentInit {
       }
       rn++;
     }
+    this.rows.changes.subscribe((value) => {
+      console.log("rows changed", value);
+    });
   }
 }

@@ -8,8 +8,8 @@ import { ItemsService } from './items.service';
 })
 export class RecipesService {
   data: { [key: string]: RecipeGroup; };
-  constructor(private itemsService: ItemsService) { 
-    this.data = (<RecipeGroupDataFile><unknown>recipesDataFile).data; 
+  constructor(private itemsService: ItemsService) {
+    this.data = (<RecipeGroupDataFile><unknown>recipesDataFile).data;
   }
   getRecipeGroupIds(): string[] {
     return Object.keys(this.data);
@@ -20,8 +20,8 @@ export class RecipesService {
   getRecipeIds(groupId: string): string[] {
     return Object.keys(this.data[groupId].recipes);
   }
-  getRecipe(groupId: string, recipeId: string): Recipe {
-    return this.data[groupId].recipes[recipeId];
+  getRecipeName(groupId: string, recipeId: string): string {
+    return this.data[groupId].recipes[recipeId].name;
   }
   // TODO recipe cost, etc.
 }
