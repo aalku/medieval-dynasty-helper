@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+.p-component, .p-inputtext, p.dropdown {
+  font-size: 3vw!important;
+}
 p-button {
     margin-right: .5em;
 }

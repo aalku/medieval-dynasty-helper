@@ -16,17 +16,11 @@
     <form-tc key="costPerItem" label="Cost per item" cellInnerClass="text-right"></form-tc>
 
     <!-- Rows -->
-    <ng-container *ngFor="let item of [{label:'a'},{label:'b'}]">
+    <ng-container *ngFor="let item of selectedRecipeIngredients; trackBy:trackItem">
       <form-tr>
-        <form-td>{{item.label}}</form-td><form-td>X</form-td><form-td><input type="text" pInputText [(ngModel)]="item.label" /></form-td>
+        <form-td>{{item.label}}</form-td><form-td>{{item.quantity}}</form-td><form-td>X</form-td>
       </form-tr>
     </ng-container>
-    <form-tr>
-      <form-td>Fabes</form-td><form-td>6 x 9 = 42</form-td><form-td>3 x 2 = 6</form-td>
-    </form-tr>
-    <form-tr>
-      <form-td>Chorizo</form-td><form-td>6 x 9 = 42</form-td><form-td>2 x 2 = 4</form-td>
-    </form-tr>
   </form-table>
 </form-group>
 

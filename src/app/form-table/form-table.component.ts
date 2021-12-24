@@ -1,4 +1,5 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, Input, QueryList } from '@angular/core';
+import { FormTableCellComponent } from '../form-table-cell/form-table-cell.component';
 import { FormTableColumnComponent } from '../form-table-column/form-table-column.component';
 import { FormTableRowComponent } from '../form-table-row/form-table-row.component';
 
@@ -18,23 +19,11 @@ export class FormTableComponent implements AfterContentInit {
 
   constructor() { }
 
-  ngAfterContentInit(): void {
-    var cn = 1;
-    for (let column of this.columns) {
-      column.setTable(this);
-      var key : string | null = column.key || column.label || "c" + cn;
-      if (!column.key) {
-        column.key = key;
-      }
-      this._indexedColumns[key] = column;
-      console.log("column", key, column);
-      this.columns.reset
-      cn++;
-    }
+  private prepareRows(rows: FormTableRowComponent[]) {
     var rn = 1;
-    for (let row of this.rows) {
+    for (let row of rows) {
       row.setTable(this);
-      console.log("row", row);
+      //console.log("row", row);
       var cn = 1;
       var named : boolean = false;
       for (let cell of row.cells) {
@@ -49,13 +38,30 @@ export class FormTableComponent implements AfterContentInit {
         }
         cell.setRow(row);
         cell.setColumn(this._indexedColumns[key]);
-        console.log("cell", key, cell);
+        // console.log("cell", key, cell);
         cn++;
       }
       rn++;
     }
+  }
+
+  ngAfterContentInit(): void {
+    var cn = 1;
+    for (let column of this.columns) {
+      column.setTable(this);
+      var key : string | null = column.key || column.label || "c" + cn;
+      if (!column.key) {
+        column.key = key;
+      }
+      this._indexedColumns[key] = column;
+      console.log("column", key, column);
+      this.columns.reset
+      cn++;
+    }
+    this.prepareRows(this.rows.toArray());
     this.rows.changes.subscribe((value) => {
       console.log("rows changed", value);
+      this.prepareRows(value.toArray());
     });
   }
 }
