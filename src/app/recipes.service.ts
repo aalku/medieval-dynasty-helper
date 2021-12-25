@@ -14,30 +14,129 @@ export class RecipeGroup {
 }
 
 export class Recipe {
-  group: string;
-  id: string;
-  label: string;
-  ingredients: { [id: string]: RecipeItem; };
-  quantitySet: number | null;
+  readonly group: string;
+  readonly id: string;
+  readonly label: string;
+  readonly ingredients: { [id: string]: RecipeItem; };
+  private _quantityDisplay: string = "";
+  private _quantitySet: string = "";
+  private _quantity: number = 1;
   constructor(group: string, id: string, label: string, ingredients: { [id: string]: RecipeItem; }) {
     this.group = group;
     this.id = id;
     this.label = label;
     this.ingredients = ingredients;
-    this.quantitySet = null;
+    Object.keys(this.ingredients).forEach((iid) => {
+      this.ingredients[iid].recipe = this;
+    });
+    this.resetRecipe();
   }
+
+  get quantity(): number {
+    return this._quantity;
+  }
+
+  get quantityDisplay(): string {
+    return this._quantityDisplay;
+  }
+
+  get quantitySet(): string {
+    return this._quantitySet;
+  }
+  set quantitySet(value: string ) {
+    if (this._quantitySet != value) {
+      this._quantitySet = value;
+      this._quantity = parseInt(value);
+      if (value.length > 0) {
+        Object.values(this.ingredients).forEach((i) => {
+          i.quantitySet = "";
+          i.quantityDisplay = this.buildQuantityDisplay(i);
+        });
+      } else {
+        this.resetRecipe();
+      }
+      this.updateSummary();
+    }
+  }
+
+  ingredientQuantitySet(ingredient : RecipeItem) : void {
+    console.log("ingredientQuantitySet", ingredient);
+    if (ingredient.quantitySet.length > 0) {
+      this._quantity = Math.floor(parseInt(ingredient.quantitySet) / ingredient.quantity);
+      this._quantityDisplay = this.quantity.toString(); // TODO maybe better
+      this.quantitySet = "";
+
+      ingredient.quantityDisplay = "";
+      Object.values(this.ingredients).forEach((i) => {
+        if (i != ingredient) {
+          i.quantitySet = "";
+          i.quantityDisplay = this.buildQuantityDisplay(i);
+        }
+      });
+      this.updateSummary();
+    } else {
+      this.resetRecipe();
+    }
+  }
+
+  resetRecipe() : void {
+    this._quantity = 1;
+    this.quantitySet = "";
+    this._quantityDisplay = "1";
+    Object.values(this.ingredients).forEach((i) => {
+      i.quantitySet = "";
+      i.quantityDisplay = this.buildQuantityDisplay(i);
+    });
+  }
+
+  buildQuantityDisplay(i: RecipeItem) : string {
+    return `${i.quantity} x ${this.quantity} = ${i.quantity * this.quantity}`;
+  }
+
+  updateSummary() {
+    console.error("updateSummary not implemented");
+  }
+
 }
 
 export class RecipeItem {
-  id: string;
-  label: string;
-  quantity: number;
-  quantitySet: number | null;
+  readonly id: string;
+  readonly label: string;
+  readonly quantity: number;
+  private _quantityDisplay: string;
+  private _quantitySet: string = "";
+  private _recipe: Recipe | null = null;
   constructor(id: string, label: string, quantity: number) {
     this.id = id;
     this.label = label;
     this.quantity = quantity;
-    this.quantitySet = null;
+    this._quantityDisplay = "";
+  }
+
+  set recipe(value: Recipe | null) {
+    if (this.recipe != null) {
+      throw new Error("recipe already set");
+    }
+    this._recipe = value;
+  }
+
+  get quantityDisplay(): string {
+    return this._quantityDisplay;
+  }
+  set quantityDisplay(value: string) {
+    if (this._quantityDisplay != value) {
+      this._quantityDisplay = value;
+    }
+  }
+
+  get quantitySet(): string {
+    return this._quantitySet;
+  }
+  set quantitySet(value: string ) {
+    if (this._quantitySet != value) {
+      this._quantitySet = value;
+      this._recipe?.ingredientQuantitySet(this);
+    }
   }
 }
 
@@ -57,7 +156,7 @@ export class RecipesService {
         let r : any = rawData[rgId].recipes[rId];
         for (let iId of Object.keys(r.ingredients)) {
           var ingredientName = itemsService.getItem(iId).name;
-          ingredients[iId] = new RecipeItem(iId, ingredientName, r.ingredients[iId].quantity);
+          ingredients[iId] = new RecipeItem(iId, ingredientName, r.ingredients[iId]);
         }
         recipes[rId] = new Recipe(rgId, rId, r.name, ingredients);
       }

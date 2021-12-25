@@ -4,7 +4,7 @@
 <form-group title="Recipe input information">
   <form-vr label="Recipe group"><p-dropdown scrollHeight="400px" [options]="recipeGroupList" [(ngModel)]="selectedRecipeGroup" optionLabel="label"></p-dropdown></form-vr>
   <form-vr label="Recipe name"> <p-dropdown scrollHeight="400px" [options]="recipesOfSelectedGroup" [(ngModel)]="selectedRecipe" optionLabel="label"></p-dropdown></form-vr>
-  <form-vr label="Item count" valueContainerClass="text-right"><rw-input defaultValue="{{quantityDisplay}}" [(editedValue)]="quantityEdited"></rw-input></form-vr>
+  <form-vr label="Item count" valueContainerClass="text-right"><rw-input defaultValue="{{selectedRecipe.quantityDisplay}}" [(editedValue)]="selectedRecipe.quantitySet"></rw-input></form-vr>
 </form-group>
 
 <form-group title="Ingredients">
@@ -16,9 +16,9 @@
     <form-tc key="costPerItem" label="Cost per item" cellInnerClass="text-right"></form-tc>
 
     <!-- Rows -->
-    <ng-container *ngFor="let item of selectedRecipeIngredients; trackBy:trackItem" >
+    <ng-container *ngFor="let item of selectedRecipeIngredients" >
       <form-tr>
-        <form-td>{{item.label}}</form-td><form-td>{{item.quantity}}</form-td><form-td>X</form-td>
+        <form-td>{{item.label}}</form-td><form-td><rw-input defaultValue="{{item.quantityDisplay}}" [(editedValue)]="item.quantitySet"></rw-input></form-td><form-td>X</form-td>
       </form-tr>
     </ng-container>
   </form-table>
