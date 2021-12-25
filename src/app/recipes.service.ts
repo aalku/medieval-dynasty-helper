@@ -50,7 +50,7 @@ export class Recipe {
       if (value.length > 0) {
         Object.values(this.ingredients).forEach((i) => {
           i.quantitySet = "";
-          i.quantityDisplay = this.buildQuantityDisplay(i);
+          i.quantityDisplay = this.buildItemQuantityDisplay(i);
         });
       } else {
         this.resetRecipe();
@@ -63,14 +63,14 @@ export class Recipe {
     console.log("ingredientQuantitySet", ingredient);
     if (ingredient.quantitySet.length > 0) {
       this._quantity = Math.floor(parseInt(ingredient.quantitySet) / ingredient.quantity);
-      this._quantityDisplay = this.quantity.toString(); // TODO maybe better
+      this._quantityDisplay = this.buildRecipeQuantityDisplay(ingredient);
       this.quantitySet = "";
 
       ingredient.quantityDisplay = "";
       Object.values(this.ingredients).forEach((i) => {
         if (i != ingredient) {
           i.quantitySet = "";
-          i.quantityDisplay = this.buildQuantityDisplay(i);
+          i.quantityDisplay = this.buildItemQuantityDisplay(i);
         }
       });
       this.updateSummary();
@@ -85,12 +85,16 @@ export class Recipe {
     this._quantityDisplay = "1";
     Object.values(this.ingredients).forEach((i) => {
       i.quantitySet = "";
-      i.quantityDisplay = this.buildQuantityDisplay(i);
+      i.quantityDisplay = this.buildItemQuantityDisplay(i);
     });
   }
 
-  buildQuantityDisplay(i: RecipeItem) : string {
+  buildItemQuantityDisplay(i: RecipeItem) : string {
     return `${i.quantity} x ${this.quantity} = ${i.quantity * this.quantity}`;
+  }
+  buildRecipeQuantityDisplay(i: RecipeItem) : string {
+    var set : boolean = i.quantitySet.length > 0 && !Number.isNaN(Number.parseFloat(i.quantitySet));
+    return set ? `${i.quantitySet} / ${i.quantity} (${i.label}) = ${this.quantity}` : this.quantity.toString();
   }
 
   updateSummary() {
