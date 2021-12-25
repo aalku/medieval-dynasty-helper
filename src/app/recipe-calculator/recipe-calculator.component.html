@@ -2,7 +2,7 @@
 <p>This calculator will help you calculate the amount of materials you need to craft a certain item.</p>
 
 <form-group title="Recipe input information">
-  <form-vr label="Recipe group"><p-dropdown scrollHeight="400px" [options]="recipeGroups" [(ngModel)]="selectedRecipeGroup" optionLabel="label"></p-dropdown></form-vr>
+  <form-vr label="Recipe group"><p-dropdown scrollHeight="400px" [options]="recipeGroupList" [(ngModel)]="selectedRecipeGroup" optionLabel="label"></p-dropdown></form-vr>
   <form-vr label="Recipe name"> <p-dropdown scrollHeight="400px" [options]="recipesOfSelectedGroup" [(ngModel)]="selectedRecipe" optionLabel="label"></p-dropdown></form-vr>
   <form-vr label="Item count" valueContainerClass="text-right"><rw-input defaultValue="{{quantityDisplay}}" [(editedValue)]="quantityEdited"></rw-input></form-vr>
 </form-group>
@@ -23,32 +23,6 @@
     </ng-container>
   </form-table>
 </form-group>
-
-<span style="display: none;">
-<h3>old table</h3>
-<div class="grid">
-  <div class="col-4 px-1 py-1 text-center">
-    <div class="shadow-1 p-2 surface-300">Ingredient</div></div>
-  <div class="col-4 px-1 py-1 text-center">
-    <div class="shadow-1 p-2 surface-300">Quantity</div></div>
-  <div class="col-4 px-1 py-1 text-center">
-    <div class="shadow-1 p-2 surface-300">Cost per item</div></div>
-
-  <div class="col-4 px-1 py-1">
-    <div class="shadow-1 p-2  text-left">Fabes</div></div>
-  <div class="col-4 px-1 py-1 text-right">
-    <div class="shadow-1 p-2">6 x 9 = 42</div></div>
-  <div class="col-4 px-1 py-1 text-right">
-    <div class="shadow-1 p-2">3 x 2 = 6</div></div>
-
-    <div class="col-4 px-1 py-1">
-      <div class="shadow-1 p-2  text-left">Chorizo</div></div>
-    <div class="col-4 px-1 py-1 text-right">
-      <div class="shadow-1 p-2  text-right">6 x 9 = 42</div></div>
-    <div class="col-4 px-1 py-1 text-right">
-      <div class="shadow-1 p-2">2 x 2 = 4</div></div>
-</div>
-</span>
 
 <form-group title="Production information">
   <form-vr label="Base price" valueContainerClass="text-right">50 x 9 = 41</form-vr>

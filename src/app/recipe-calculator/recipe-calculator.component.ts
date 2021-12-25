@@ -1,24 +1,6 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { RecipesService } from '../recipes.service';
-
-interface RecipeGroup {
-  id: string;
-  label: string;
-}
-
-interface Recipe {
-  group: string;
-  id: string;
-  label: string;
-}
-
-interface RecipeItem {
-  label: string;
-  quantity: number;
-  quantitySet: boolean;
-  calculatedQuantity: string;
-}
+import { Recipe, RecipeGroup, RecipeItem, RecipesService } from '../recipes.service';
 
 @Component({
   selector: 'app-recipe-calculator',
@@ -31,7 +13,7 @@ export class RecipeCalculatorComponent implements OnInit {
   private _selectedRecipe!: Recipe;
   private _quantityEdited: string = "";
   quantityDisplay: string = "1";
-  recipeGroups: RecipeGroup[] = [];
+  recipeGroupList: RecipeGroup[] = [];
   recipesOfSelectedGroup!: Recipe[];
   selectedRecipeIngredients!: RecipeItem[];
   constructor(private recipesService: RecipesService) {}
@@ -41,31 +23,18 @@ export class RecipeCalculatorComponent implements OnInit {
   }
 
   eventRecipeSelected() {
-    let x = [];
-    for (let ri of this.recipesService.getRecipeIngredientIds(this.selectedRecipe.group, this.selectedRecipe.id)) {
-      let label : string = this.recipesService.getItemName(ri);
-      let quantity : number = this.recipesService.getIngredientQuantity(this.selectedRecipe.group, this.selectedRecipe.id, ri);
-      x.push({label: label, quantity: quantity, quantitySet: false, calculatedQuantity: '???'});
-    }
-    this.selectedRecipeIngredients = x;
+    this.selectedRecipeIngredients = Object.values(this.selectedRecipe.ingredients);
   }
+
   eventRecipeGroupSelected() {
-    let x = [];
-    for (let rid of  this.recipesService.getRecipeIds(this.selectedRecipeGroup.id)) {
-      x.push(
-        {
-          group: this.selectedRecipeGroup.id,
-          id: rid,
-          label: this.recipesService.getRecipeName(this.selectedRecipeGroup.id, rid)});
-    }
-    this.recipesOfSelectedGroup = x;
+    this.recipesOfSelectedGroup = Object.values(this._selectedRecipeGroup.recipes);
   }
 
   ngOnInit(): void {
-    for (let rg of  this.recipesService.getRecipeGroupIds()) {
-      this.recipeGroups.push({id: rg, label: this.recipesService.getRecipeGroupName(rg)
-        .replace(/^\s*Food - /, '')});
+    for (let rg of Object.values(this.recipesService.getRecipeGroups())) {
+      this.recipeGroupList.push(rg);
     }
+    console.log("recipeGroupList: ", this.recipeGroupList);
   }
 
   get selectedRecipeGroup(): RecipeGroup {
@@ -96,29 +65,16 @@ export class RecipeCalculatorComponent implements OnInit {
   }
 
   recalculate(quantityEdited: boolean, ingredientEdited: string | null) {
+    /* We enter the input into the recipe and get the results from it. We don't calc stuff out here. */
     console.log("recalculate: ", quantityEdited, ingredientEdited);
-    var quantity !: number;
     if (quantityEdited) {
       if (ingredientEdited) {
         throw new Error("quantityEdited and ingredientEdited cannot both be true");
       } else {
-        quantity = Number.parseFloat(this.quantityEdited);
+        this._selectedRecipe.quantitySet = Number.parseFloat(this.quantityEdited);
       }
-    } else if (!ingredientEdited) {
-      this.quantityDisplay = "1";
-      quantity = 1;
     } else {
-      quantity = 99;
-      // TODO calculate quantity from edited ingredient
-      this.quantityDisplay = "" + quantity;
-    }
-    // TODO calculate quantity for each ingredient
-    for (let ri of this.selectedRecipeIngredients) {
-      if (ri.quantitySet) {
-        // Nothing to do
-      } else {
-        ri.calculatedQuantity = "" + (ri.quantity * quantity);
-      }
+      this._selectedRecipe.quantitySet = null;
     }
   }
 }
