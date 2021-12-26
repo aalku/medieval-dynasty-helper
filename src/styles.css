@@ -13,15 +13,9 @@ div.grid {
 p-button {
     margin-right: .5em;
 }
-div.instructions h5 {
-  margin-bottom: 1em;
-  padding-bottom: 0;
-}
-div.instructions ul {
-  font-size: 0.8em;
-}
-div.instructions li {
-  margin-bottom: 0.1em;
+/* Router tabs */
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
+  padding: 0.5em!important;
 }
 /* Form */
 div.form-vr .p-dropdown .p-dropdown-trigger,

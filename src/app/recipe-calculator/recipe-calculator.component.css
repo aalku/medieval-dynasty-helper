@@ -1,0 +1,12 @@
+/* Instructions */
+div.instructions h5 {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+div.instructions ul {
+  margin-top: 0.5em;
+  font-size: 0.8em;
+}
+div.instructions li {
+  margin-bottom: 0.1em;
+}
