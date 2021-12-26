@@ -115,10 +115,10 @@ export class ItemPrice {
   readonly expression: string;
 
   constructor(label: string, baseUnitPrice: number, priceType: string, quantity: number) {
-    this.label = label;
     let priceObject = priceTypes[priceType];
     this.unitCost = priceObject.formula(baseUnitPrice, quantity);
     this.expression = priceObject.template(baseUnitPrice, quantity);
+    this.label = `(${label}) ${this.expression}`; ;
   }
 }
 
@@ -130,6 +130,7 @@ export class RecipeItem {
   private _quantitySet: string = "";
   private _recipe: Recipe | null = null;
   readonly prices: ItemPrice[];
+  public selectedPrice!: ItemPrice;
   constructor(id: string, item: any, quantity: number) {
     this.id = id;
     this.item = item;

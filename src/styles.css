@@ -21,12 +21,14 @@ div.form-vr .p-inputtext, div.form-cell .p-inputtext {
   border: 0 none!important;
   width: 100%!important;
 }
-div.form-vr .p-dropdown {
+div.form-vr .p-dropdown,
+div.form-cell .p-dropdown {
   border: 0 none!important;
   width: 100%!important;
   text-align: center!important;
 }
-div.form-vr .p-dropdown-item {
+div.form-vr .p-dropdown-item,
+div.form-cell .p-dropdown-item {
   padding-top: 0.3em!important;
   padding-bottom: 0.3em!important;
 }

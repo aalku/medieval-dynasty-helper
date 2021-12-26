@@ -17,7 +17,9 @@
     <!-- Rows -->
     <ng-container *ngFor="let item of selectedRecipeIngredients" >
       <form-tr>
-        <form-td>{{item.label}}</form-td><form-td><rw-input defaultValue="{{item.quantityDisplay}}" [(editedValue)]="item.quantitySet"></rw-input></form-td><form-td>X</form-td>
+        <form-td>{{item.label}}</form-td>
+        <form-td><rw-input defaultValue="{{item.quantityDisplay}}" [(editedValue)]="item.quantitySet"></rw-input></form-td>
+        <form-td><p-dropdown scrollHeight="400px" [options]="item.prices" [(ngModel)]="item.selectedPrice" optionLabel="label"></p-dropdown></form-td>
       </form-tr>
     </ng-container>
   </form-table>
