@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
-import { ItemsService } from './items.service';
+import { NavigationStart, Router } from '@angular/router';
+import { MenuItem, PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +9,21 @@ import { ItemsService } from './items.service';
 })
 export class AppComponent implements OnInit {
   title = 'medieval-dynasty-app';
-  constructor(private primengConfig: PrimeNGConfig, private itemsService: ItemsService) {}
+  activeTab: MenuItem | null = null;
+  tabMenuItems : MenuItem[] = [
+    {label: "Medieval Dynasty Helper", icon: "pi pi-fw pi-home", routerLink: ['/']},
+    {label: "Recipe Calculator", icon: "pi pi-fw pi-shopping-bag", routerLink: ['/recipe-calculator']},
+];
+  constructor(
+    private primengConfig: PrimeNGConfig,
+    private router : Router) {}
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-    console.log("wooden-hoe", this.itemsService.getItem("wooden-hoe"));
+    this.router.events.subscribe(e => {
+      if (e instanceof NavigationStart) {
+        console.log(e);
+        this.activeTab = this.tabMenuItems.find((item : MenuItem) => item.routerLink.includes(e.url)) || null;
+      }
+    });
   }
 }

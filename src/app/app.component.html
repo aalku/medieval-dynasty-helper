@@ -1,7 +1,6 @@
 <div class="layout-wrapper p-component" >
     <div class="">
-        <p-button label="Medieval Dynasty Helper" routerLink="/"></p-button>
-        <p-button label="Recipe Calculator" routerLink="/recipe-calculator"></p-button>
+        <p-tabMenu [model]="tabMenuItems" [activeItem]="activeTab || tabMenuItems[0]"></p-tabMenu>
     </div>
     <div class="layout-content" style="max-width: 100ch">
         <router-outlet></router-outlet>

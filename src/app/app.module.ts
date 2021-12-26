@@ -18,9 +18,12 @@ import { RwInputComponent } from './form-x/rw-input/rw-input.component';
 import {InputTextModule} from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import {DropdownModule} from 'primeng/dropdown';
+import {TabMenuModule} from 'primeng/tabmenu';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
   { path: 'recipe-calculator', component: RecipeCalculatorComponent },
+  { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
 ];
 
@@ -35,7 +38,8 @@ const appRoutes: Routes = [
     FormTableRowComponent,
     FormTableCellComponent,
     FormTableColumnComponent,
-    RwInputComponent
+    RwInputComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -47,9 +51,11 @@ const appRoutes: Routes = [
     FormsModule,
     ButtonModule,
     InputTextModule,
-    DropdownModule
+    DropdownModule,
+    TabMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
