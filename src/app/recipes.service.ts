@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import recipesDataFile from '../assets/recipes.json' ;
 import { ItemsService } from './items.service';
 
+const priceTypes : { [key: string] : any } = {
+  base: {id:"base", formula:(b : number, q : number)=>b*q*1,   template:(b : number, q : number)=>`${b} x ${q} = ${b*q}`},
+  buy:  {id:"buy",  formula:(b : number, q : number)=>b*q*2,   template:(b : number, q : number)=>`${b} x ${q} x 2 = ${b*q*2}`},
+  sell: {id:"sell", formula:(b : number, q : number)=>b*q*0.5, template:(b : number, q : number)=>`${b} x ${q} / 2 = ${b*q*0.5}`},
+};
+
 export class RecipeGroup {
   id: string;
   label: string;
@@ -103,25 +109,45 @@ export class Recipe {
 
 }
 
+export class ItemPrice {
+  readonly label: string;
+  readonly unitCost: number;
+  readonly expression: string;
+
+  constructor(label: string, baseUnitPrice: number, priceType: string, quantity: number) {
+    this.label = label;
+    let priceObject = priceTypes[priceType];
+    this.unitCost = priceObject.formula(baseUnitPrice, quantity);
+    this.expression = priceObject.template(baseUnitPrice, quantity);
+  }
+}
+
 export class RecipeItem {
   readonly id: string;
-  readonly label: string;
   readonly quantity: number;
+  readonly item: any;
   private _quantityDisplay: string;
   private _quantitySet: string = "";
   private _recipe: Recipe | null = null;
-  constructor(id: string, label: string, quantity: number) {
+  readonly prices: ItemPrice[];
+  constructor(id: string, item: any, quantity: number) {
     this.id = id;
-    this.label = label;
+    this.item = item;
     this.quantity = quantity;
     this._quantityDisplay = "";
+    this.prices = ["base", "buy"]
+      .map(p=>priceTypes[p])
+      .map(p=>new ItemPrice(p.id, this.item.price, p.id, this.quantity));
   }
 
   set recipe(value: Recipe | null) {
-    if (this.recipe != null) {
+    if (this._recipe != null) {
       throw new Error("recipe already set");
     }
     this._recipe = value;
+  }
+  get recipe(): Recipe | null {
+    return this._recipe;
   }
 
   get quantityDisplay(): string {
@@ -142,6 +168,9 @@ export class RecipeItem {
       this._recipe?.ingredientQuantitySet(this);
     }
   }
+  get label(): string {
+    return this.item.name;
+  }
 }
 
 @Injectable({
@@ -159,8 +188,8 @@ export class RecipesService {
         let ingredients: { [id: string] : RecipeItem } = {};
         let r : any = rawData[rgId].recipes[rId];
         for (let iId of Object.keys(r.ingredients)) {
-          var ingredientName = itemsService.getItem(iId).name;
-          ingredients[iId] = new RecipeItem(iId, ingredientName, r.ingredients[iId]);
+          var item = itemsService.getItem(iId);
+          ingredients[iId] = new RecipeItem(iId, item, r.ingredients[iId]);
         }
         recipes[rId] = new Recipe(rgId, rId, r.name, ingredients);
       }
