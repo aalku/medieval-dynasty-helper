@@ -90,11 +90,11 @@ export class Recipe {
   }
 
   buildItemQuantityDisplay(i: RecipeItem) : string {
-    return `${i.quantity} x ${this.quantity} = ${i.quantity * this.quantity}`;
+    return `${i.quantity}\xa0x\xa0${this.quantity}\xa0=\xa0${i.quantity * this.quantity}`;
   }
   buildRecipeQuantityDisplay(i: RecipeItem) : string {
     var set : boolean = i.quantitySet.length > 0 && !Number.isNaN(Number.parseFloat(i.quantitySet));
-    return set ? `${i.quantitySet} / ${i.quantity} (${i.label}) = ${this.quantity}` : this.quantity.toString();
+    return set ? `${i.quantitySet}\xa0/\xa0${i.quantity}\xa0(${i.label})\xa0=\xa0${this.quantity}` : this.quantity.toString();
   }
 
   updateSummary() {
