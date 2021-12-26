@@ -2,9 +2,6 @@
 .p-component, .p-inputtext, p.dropdown {
   font-size: min(3vw, 1em)!important;
 }
-.p-dropdown .p-dropdown-trigger {
-  width: min(3vw, 1.5em)!important;
-}
 div.rw-input-edited {
   background-color: #ccffcc!important;
   padding: 0.5rem; /* same as container */
@@ -15,6 +12,21 @@ div.grid {
 }
 p-button {
     margin-right: .5em;
+}
+div.instructions h5 {
+  margin-bottom: 1em;
+  padding-bottom: 0;
+}
+div.instructions ul {
+  font-size: 0.8em;
+}
+div.instructions li {
+  margin-bottom: 0.1em;
+}
+/* Form */
+div.form-vr .p-dropdown .p-dropdown-trigger,
+div.form-cell .p-dropdown .p-dropdown-trigger {
+  width: min(3vw, 1.5em)!important;
 }
 div.form-vr .p-inputtext, div.form-cell .p-inputtext {
   padding: 0!important;
