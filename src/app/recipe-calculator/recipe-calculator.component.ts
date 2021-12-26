@@ -33,15 +33,25 @@ export class RecipeCalculatorComponent implements OnInit {
     if (!this.selectedRecipe) {
       return "";
     }
-    var b = this.selectedRecipe.ingredientsCost;
+    var c = this.selectedRecipe.ingredientsCost;
     var q = this.selectedRecipe.quantity;
-    return `(${b} x ${q}) = ${b*q}`;
+    return `(${c} x ${q}) = ${c*q}`;
   }
-  get valueIncrease(): string {
-    return "x";
+  get valueIncrease(): number {
+    if (!this.selectedRecipe) {
+      return 0;
+    }
+    var c = this.selectedRecipe.ingredientsCost;
+    var v = this.selectedRecipe.basePrice;
+    return Math.round((100*(v-c)/c)*10)/10;
   }
-  get profit(): string {
-    return "x";
+  get profit(): number {
+    if (!this.selectedRecipe) {
+      return 0;
+    }
+    var c = this.selectedRecipe.ingredientsCost;
+    var v = this.selectedRecipe.basePrice / 2;
+    return Math.round((100*(v-c)/c)*10)/10;
   }
 
   constructor(private recipesService: RecipesService) {}

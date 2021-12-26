@@ -69,7 +69,6 @@ export class Recipe {
       } else {
         this.resetRecipe();
       }
-      this.updateSummary();
     }
   }
 
@@ -97,7 +96,6 @@ export class Recipe {
           i.quantityDisplay = this.buildItemQuantityDisplay(i);
         }
       });
-      this.updateSummary();
     } else {
       this.resetRecipe();
     }
@@ -125,10 +123,6 @@ export class Recipe {
     return set
       ? `${i.quantitySet}\xa0/\xa0${i.quantity}\xa0(${i.label})\xa0=\xa0${this.quantity}`
       : this.quantity.toString();
-  }
-
-  updateSummary() {
-    console.error('updateSummary not implemented');
   }
 }
 
@@ -212,10 +206,10 @@ export class RecipesService {
         let ingredients: { [id: string] : RecipeItem } = {};
         let r : any = rawData[rgId].recipes[rId];
         for (let iId of Object.keys(r.ingredients)) {
-          var item = itemsService.getItem(iId);
+          let item = itemsService.getItem(iId);
           ingredients[iId] = new RecipeItem(iId, item, r.ingredients[iId]);
         }
-        recipes[rId] = new Recipe(rgId, rId, r.name, ingredients, item.price);
+        recipes[rId] = new Recipe(rgId, rId, r.name, ingredients, itemsService.getItem(r.result).price);
       }
       this.recipeGroups[rgId] = new RecipeGroup(rgId, rawData[rgId].name, recipes);
     }
