@@ -23,11 +23,18 @@ export class Recipe {
   readonly group: string;
   readonly id: string;
   readonly label: string;
-  readonly ingredients: { [id: string]: RecipeItem; };
-  private _quantityDisplay: string = "";
-  private _quantitySet: string = "";
+  readonly ingredients: { [id: string]: RecipeItem };
+  private _quantityDisplay: string = '';
+  private _quantitySet: string = '';
   private _quantity: number = 1;
-  constructor(group: string, id: string, label: string, ingredients: { [id: string]: RecipeItem; }) {
+  readonly basePrice: number;
+  constructor(
+    group: string,
+    id: string,
+    label: string,
+    ingredients: { [id: string]: RecipeItem },
+    basePrice: number
+  ) {
     this.group = group;
     this.id = id;
     this.label = label;
@@ -35,6 +42,7 @@ export class Recipe {
     Object.keys(this.ingredients).forEach((iid) => {
       this.ingredients[iid].recipe = this;
     });
+    this.basePrice = basePrice;
     this.resetRecipe();
   }
 
@@ -49,13 +57,13 @@ export class Recipe {
   get quantitySet(): string {
     return this._quantitySet;
   }
-  set quantitySet(value: string ) {
+  set quantitySet(value: string) {
     if (this._quantitySet != value) {
       this._quantitySet = value;
       this._quantity = parseInt(value);
       if (value.length > 0) {
         Object.values(this.ingredients).forEach((i) => {
-          i.quantitySet = "";
+          i.quantitySet = '';
           i.quantityDisplay = this.buildItemQuantityDisplay(i);
         });
       } else {
@@ -65,17 +73,27 @@ export class Recipe {
     }
   }
 
-  ingredientQuantitySet(ingredient : RecipeItem) : void {
-    console.log("ingredientQuantitySet", ingredient);
-    if (ingredient.quantitySet.length > 0) {
-      this._quantity = Math.floor(parseInt(ingredient.quantitySet) / ingredient.quantity);
-      this._quantityDisplay = this.buildRecipeQuantityDisplay(ingredient);
-      this.quantitySet = "";
+  get ingredientsCost(): number {
+    var cost: number = 0;
+    Object.values(this.ingredients).forEach((i: RecipeItem) => {
+       cost += i?.selectedPrice?.unitCost || 0;
+    });
+    return cost;
+  }
 
-      ingredient.quantityDisplay = "";
+  ingredientQuantitySet(ingredient: RecipeItem): void {
+    console.log('ingredientQuantitySet', ingredient);
+    if (ingredient.quantitySet.length > 0) {
+      this._quantity = Math.floor(
+        parseInt(ingredient.quantitySet) / ingredient.quantity
+      );
+      this._quantityDisplay = this.buildRecipeQuantityDisplay(ingredient);
+      this.quantitySet = '';
+
+      ingredient.quantityDisplay = '';
       Object.values(this.ingredients).forEach((i) => {
         if (i != ingredient) {
-          i.quantitySet = "";
+          i.quantitySet = '';
           i.quantityDisplay = this.buildItemQuantityDisplay(i);
         }
       });
@@ -85,28 +103,33 @@ export class Recipe {
     }
   }
 
-  resetRecipe() : void {
+  resetRecipe(): void {
     this._quantity = 1;
-    this.quantitySet = "";
-    this._quantityDisplay = "1";
+    this.quantitySet = '';
+    this._quantityDisplay = '1';
     Object.values(this.ingredients).forEach((i) => {
-      i.quantitySet = "";
+      i.quantitySet = '';
       i.quantityDisplay = this.buildItemQuantityDisplay(i);
     });
   }
 
-  buildItemQuantityDisplay(i: RecipeItem) : string {
-    return `${i.quantity}\xa0x\xa0${this.quantity}\xa0=\xa0${i.quantity * this.quantity}`;
+  buildItemQuantityDisplay(i: RecipeItem): string {
+    return `${i.quantity}\xa0x\xa0${this.quantity}\xa0=\xa0${
+      i.quantity * this.quantity
+    }`;
   }
-  buildRecipeQuantityDisplay(i: RecipeItem) : string {
-    var set : boolean = i.quantitySet.length > 0 && !Number.isNaN(Number.parseFloat(i.quantitySet));
-    return set ? `${i.quantitySet}\xa0/\xa0${i.quantity}\xa0(${i.label})\xa0=\xa0${this.quantity}` : this.quantity.toString();
+  buildRecipeQuantityDisplay(i: RecipeItem): string {
+    var set: boolean =
+      i.quantitySet.length > 0 &&
+      !Number.isNaN(Number.parseFloat(i.quantitySet));
+    return set
+      ? `${i.quantitySet}\xa0/\xa0${i.quantity}\xa0(${i.label})\xa0=\xa0${this.quantity}`
+      : this.quantity.toString();
   }
 
   updateSummary() {
-    console.error("updateSummary not implemented");
+    console.error('updateSummary not implemented');
   }
-
 }
 
 export class ItemPrice {
@@ -192,7 +215,7 @@ export class RecipesService {
           var item = itemsService.getItem(iId);
           ingredients[iId] = new RecipeItem(iId, item, r.ingredients[iId]);
         }
-        recipes[rId] = new Recipe(rgId, rId, r.name, ingredients);
+        recipes[rId] = new Recipe(rgId, rId, r.name, ingredients, item.price);
       }
       this.recipeGroups[rgId] = new RecipeGroup(rgId, rawData[rgId].name, recipes);
     }

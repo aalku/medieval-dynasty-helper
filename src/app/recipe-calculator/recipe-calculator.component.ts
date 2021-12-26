@@ -13,6 +13,37 @@ export class RecipeCalculatorComponent implements OnInit {
   recipeGroupList: RecipeGroup[] = [];
   recipesOfSelectedGroup!: Recipe[];
   selectedRecipeIngredients!: RecipeItem[];
+  get basePrice(): string {
+    if (!this.selectedRecipe) {
+      return "";
+    }
+    var b = this.selectedRecipe.basePrice;
+    var q = this.selectedRecipe.quantity;
+    return `${b} x ${q} = ${b*q}`;
+  }
+  get sellPrice(): string {
+    if (!this.selectedRecipe) {
+      return "";
+    }
+    var b = this.selectedRecipe.basePrice;
+    var q = this.selectedRecipe.quantity;
+    return `(${b} x ${q}) / 2 = ${b*q/2}`;
+  }
+  get ingredientsCost(): string {
+    if (!this.selectedRecipe) {
+      return "";
+    }
+    var b = this.selectedRecipe.ingredientsCost;
+    var q = this.selectedRecipe.quantity;
+    return `(${b} x ${q}) = ${b*q}`;
+  }
+  get valueIncrease(): string {
+    return "x";
+  }
+  get profit(): string {
+    return "x";
+  }
+
   constructor(private recipesService: RecipesService) {}
 
   eventRecipeSelected() {
