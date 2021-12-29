@@ -24,6 +24,10 @@ export class RwInputComponent implements OnInit {
     this.editedValueChange.emit(this._editedValue);
   }
 
+  onInput(event: any): void {
+    this.editedValueChange.emit(this._editedValue);
+  }
+
   @Output()
   editedValueChange: EventEmitter<string> = new EventEmitter<string>();
 

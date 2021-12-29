@@ -1,6 +1,7 @@
 <div style="position: relative" class="rw-input {{editedOrNotClass}}">
   <input type="text" pInputText
         [(ngModel)]="editedValue"
+        (input)="onInput($event)"
         style="width: 100%; top: 0; left: 0; background: transparent; text-align: right"
      />
   <div *ngIf="!edited" style="position: absolute; width: 100%; top: 0; left: 0; z-index: -1; height: 100%; overflow: hidden;">
