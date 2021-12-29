@@ -92,8 +92,8 @@ export class Recipe {
       ingredient.quantityDisplay = '';
       Object.values(this.ingredients).forEach((i) => {
         if (i != ingredient) {
-          i.quantitySet = '';
-          i.quantityDisplay = this.buildItemQuantityDisplay(i);
+          i._quantitySet = '';
+          i._quantityDisplay = this.buildItemQuantityDisplay(i);
         }
       });
     } else {
@@ -103,11 +103,11 @@ export class Recipe {
 
   resetRecipe(): void {
     this._quantity = 1;
-    this.quantitySet = '';
+    this._quantitySet = '';
     this._quantityDisplay = '1';
     Object.values(this.ingredients).forEach((i) => {
-      i.quantitySet = '';
-      i.quantityDisplay = this.buildItemQuantityDisplay(i);
+      i._quantitySet = '';
+      i._quantityDisplay = this.buildItemQuantityDisplay(i);
     });
   }
 
@@ -143,8 +143,8 @@ export class RecipeItem {
   readonly id: string;
   readonly quantity: number;
   readonly item: any;
-  private _quantityDisplay: string;
-  private _quantitySet: string = "";
+  _quantityDisplay: string;
+  _quantitySet: string = "";
   private _recipe: Recipe | null = null;
   readonly prices: ItemPrice[];
   public selectedPrice!: ItemPrice;
