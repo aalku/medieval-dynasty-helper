@@ -201,7 +201,11 @@ export enum SearchResultType {
 
 export interface SearchResult {
   type: SearchResultType;
-  label: string;
+  recipeGroupLabel: string;
+  recipeGroupId: string;
+  recipeId: string;
+  recipeLabel: string;
+  recipeObject: Recipe;
 }
 
 
@@ -238,7 +242,11 @@ export class RecipesService {
           if (recipe.resultItem.name.toLowerCase().includes(value.toLowerCase())) {
             results.push({
               type: SearchResultType.ToMakeItem,
-              label: recipe.label
+              recipeLabel: recipe.label,
+              recipeGroupLabel: this.recipeGroups[groupId].label,
+              recipeGroupId: groupId,
+              recipeId: recipeId,
+              recipeObject: recipe
             });
           }
           Object.keys(recipe.ingredients).forEach((iid) => {
@@ -246,14 +254,17 @@ export class RecipesService {
             if (ingredient.label.toLowerCase().includes(value.toLowerCase())) {
               results.push({
                 type: SearchResultType.ToMakeWithItem,
-                label: recipe.label
+                recipeLabel: recipe.label,
+                recipeGroupId: groupId,
+                recipeGroupLabel: this.recipeGroups[groupId].label,
+                recipeId: recipeId,
+                recipeObject: recipe
               });
             }
           });
         });
       });
     }
-    var results2 = results.filter
     return new Observable((observer) => {
       observer.next(results);
     });
