@@ -1,0 +1,28 @@
+input.search {
+  display: block;
+  min-width: 60vw;
+  max-width:100ch;
+}
+div.results {
+  margin-top: 0.5rem;
+  min-width: 30vw;
+  max-width:50ch;
+}
+div.search-result-item {
+  border: 1px solid #ccc;
+  height: 48px;
+  width: 97%;
+  margin-top: 0.2em;
+  padding: 3px;
+}
+div.search-result-item div.item-label {
+  display: block;
+  font-size: 1.2em;
+  margin: 0;
+}
+div.search-result-item div.group-label {
+  display: block;
+  font-size: 0.8em;
+  margin: 0;
+}
+

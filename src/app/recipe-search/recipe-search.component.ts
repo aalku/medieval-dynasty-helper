@@ -16,6 +16,11 @@ export class RecipeSearchComponent implements OnInit {
   constructor(private recipesService: RecipesService) { }
 
   ngOnInit(): void {
+    setTimeout(()=>{
+      var e : HTMLInputElement= document.querySelector("input.search") as HTMLInputElement;
+      e.value = "meat";
+      this.doSearch(e);
+    }, 1000);
   }
 
   doSearch(element : EventTarget | null) {
@@ -27,14 +32,15 @@ export class RecipeSearchComponent implements OnInit {
         var set : Set<string> = new Set<string>();
         update.filter(e=>e.type == SearchResultType.ToMakeItem).forEach(e=>{
           r.push(e);
-          set.add(e.label);
+          set.add(e.recipeLabel);
         });
         update.filter(e=>e.type == SearchResultType.ToMakeWithItem).forEach(e=>{
-          if (!set.has(e.label)) {
-            set.add(e.label);
+          if (!set.has(e.recipeLabel)) {
+            set.add(e.recipeLabel);
             r.push(e);
           }
         });
+        console.log("results", r);
         this.results = r;
       }
     );

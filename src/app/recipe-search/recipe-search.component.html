@@ -2,11 +2,16 @@
 <h5 style="margin-bottom: 0.5em; display: block;">Search</h5>
 <span class="p-input-icon-left">
     <i class="pi pi-search"></i>
-    <input type="search" style="display: block; min-width: 60vw; max-width:100ch"
+    <input type="search" class="search"
       pInputText [value]="value" (keyup)="doSearch($event.target)" />
-  </span>
-  <p-virtualScroller [value]="results" scrollHeight="500px" [itemSize]="20">
+</span>
+<div class="results">
+  <p-virtualScroller [value]="results" scrollHeight="500px" [itemSize]="50">
     <ng-template pTemplate="item" let-item>
-      <div>[{{item.label}}]</div>
+      <div class="search-result-item">
+        <div class="item-label"><i class="pi pi-shopping-bag"></i> {{item.recipeLabel}}</div>
+        <div class="group-label">{{item.recipeGroupLabel}}</div>
+      </div>
     </ng-template>
-</p-virtualScroller>
+  </p-virtualScroller>
+</div>
