@@ -20,9 +20,12 @@ import { FormsModule } from '@angular/forms';
 import {DropdownModule} from 'primeng/dropdown';
 import {TabMenuModule} from 'primeng/tabmenu';
 import { HomeComponent } from './home/home.component';
+import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
+import {VirtualScrollerModule} from 'primeng/virtualscroller';
 
 const appRoutes: Routes = [
   { path: 'recipe-calculator', component: RecipeCalculatorComponent },
+  { path: 'recipe-search', component: RecipeSearchComponent },
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
 ];
@@ -39,7 +42,8 @@ const appRoutes: Routes = [
     FormTableCellComponent,
     FormTableColumnComponent,
     RwInputComponent,
-    HomeComponent
+    HomeComponent,
+    RecipeSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,8 @@ const appRoutes: Routes = [
     ButtonModule,
     InputTextModule,
     DropdownModule,
-    TabMenuModule
+    TabMenuModule,
+    VirtualScrollerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

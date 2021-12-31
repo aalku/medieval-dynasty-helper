@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import recipesDataFile from '../assets/recipes.json' ;
 import { ItemsService } from './items.service';
 
@@ -28,12 +29,13 @@ export class Recipe {
   private _quantitySet: string = '';
   private _quantity: number = 1;
   readonly basePrice: number;
+  resultItem: any;
   constructor(
     group: string,
     id: string,
     label: string,
     ingredients: { [id: string]: RecipeItem },
-    basePrice: number
+    result: any
   ) {
     this.group = group;
     this.id = id;
@@ -42,7 +44,8 @@ export class Recipe {
     Object.keys(this.ingredients).forEach((iid) => {
       this.ingredients[iid].recipe = this;
     });
-    this.basePrice = basePrice;
+    this.basePrice = result.price;
+    this.resultItem = result;
     this.resetRecipe();
   }
 
@@ -191,6 +194,17 @@ export class RecipeItem {
   }
 }
 
+export enum SearchResultType {
+  ToMakeItem,
+  ToMakeWithItem
+}
+
+export interface SearchResult {
+  type: SearchResultType;
+  label: string;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -209,11 +223,42 @@ export class RecipesService {
           let item = itemsService.getItem(iId);
           ingredients[iId] = new RecipeItem(iId, item, r.ingredients[iId]);
         }
-        recipes[rId] = new Recipe(rgId, rId, r.name, ingredients, itemsService.getItem(r.result).price);
+        recipes[rId] = new Recipe(rgId, rId, r.name, ingredients, itemsService.getItem(r.result));
       }
       this.recipeGroups[rgId] = new RecipeGroup(rgId, rawData[rgId].name, recipes);
     }
   }
+
+  search(value: string) : Observable<SearchResult[]> {
+    var results: SearchResult[] = [];
+    if (value.trim().length > 2) {
+      Object.keys(this.recipeGroups).forEach((groupId) => {
+        Object.keys(this.recipeGroups[groupId].recipes).forEach((recipeId) => {
+          var recipe : Recipe = this.recipeGroups[groupId].recipes[recipeId];
+          if (recipe.resultItem.name.toLowerCase().includes(value.toLowerCase())) {
+            results.push({
+              type: SearchResultType.ToMakeItem,
+              label: recipe.label
+            });
+          }
+          Object.keys(recipe.ingredients).forEach((iid) => {
+            var ingredient = recipe.ingredients[iid];
+            if (ingredient.label.toLowerCase().includes(value.toLowerCase())) {
+              results.push({
+                type: SearchResultType.ToMakeWithItem,
+                label: recipe.label
+              });
+            }
+          });
+        });
+      });
+    }
+    var results2 = results.filter
+    return new Observable((observer) => {
+      observer.next(results);
+    });
+  }
+
 
   getRecipeGroups(): { [id: string] : RecipeGroup } {
     return this.recipeGroups;

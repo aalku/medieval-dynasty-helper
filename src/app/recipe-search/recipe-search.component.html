@@ -1,0 +1,12 @@
+<p>Enter something to search for related recipes.</p>
+<h5 style="margin-bottom: 0.5em; display: block;">Search</h5>
+<span class="p-input-icon-left">
+    <i class="pi pi-search"></i>
+    <input type="search" style="display: block; min-width: 60vw; max-width:100ch"
+      pInputText [value]="value" (keyup)="doSearch($event.target)" />
+  </span>
+  <p-virtualScroller [value]="results" scrollHeight="500px" [itemSize]="20">
+    <ng-template pTemplate="item" let-item>
+      <div>[{{item.label}}]</div>
+    </ng-template>
+</p-virtualScroller>

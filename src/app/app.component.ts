@@ -23,7 +23,13 @@ export class AppComponent implements OnInit {
       if (e instanceof NavigationStart) {
         console.log(e);
         this.activeTab = this.tabMenuItems.find((item : MenuItem) => item.routerLink.includes(e.url)) || null;
-      }
+        if (!this.activeTab && e.url.includes('/recipe-')) {
+          this.activeTab = this.tabMenuItems.find((item : MenuItem) => item.routerLink.includes('/recipe-calculator')) || null;
+        }
+        if (!this.activeTab) {
+          this.activeTab = this.tabMenuItems[0];
+        }
+        }
     });
   }
 }
