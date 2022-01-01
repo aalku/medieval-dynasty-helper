@@ -10,3 +10,13 @@ div.instructions ul {
 div.instructions li {
   margin-bottom: 0.1em;
 }
+i.pi-search {
+  content: "\e908";
+  background: #dfdfdfb8;
+  border-radius: 100%;
+  border: 1px solid #ccc;
+  padding: 6px;
+  font-size: 1.3em;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}

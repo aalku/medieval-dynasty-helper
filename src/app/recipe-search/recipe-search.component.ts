@@ -16,16 +16,24 @@ export class RecipeSearchComponent implements OnInit {
   constructor(private recipesService: RecipesService) { }
 
   ngOnInit(): void {
-    setTimeout(()=>{
-      var e : HTMLInputElement= document.querySelector("input.search") as HTMLInputElement;
-      e.value = "meat";
-      this.doSearch(e);
-    }, 1000);
+    if (false) {
+      setTimeout(()=>{
+        var e : HTMLInputElement= document.querySelector("input.search") as HTMLInputElement;
+        e.value = "meat";
+        this.doSearch(e.value);
+      }, 1000);
+    }
+    setTimeout(() => {
+      console.log("ngAfterViewInit");
+      var s = (<any>document)?.querySelector('#search') as HTMLInputElement;
+      console.log("s: ", s);
+      s?.focus();
+    }, 500);
   }
 
-  doSearch(element : EventTarget | null) {
-    console.log((<HTMLInputElement>element)?.value);
-    this.value = (<HTMLInputElement>element)?.value || "";
+  doSearch(value: string) {
+    console.log(value);
+    this.value = value;
     this.recipesService.search(this.value).subscribe(
       (update: SearchResult[]) => {
         var r : SearchResult[] = [];

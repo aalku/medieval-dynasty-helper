@@ -11,7 +11,14 @@
 
 <form-group title="Recipe input information">
   <form-vr label="Recipe group"><p-dropdown scrollHeight="400px" [options]="recipeGroupList" [(ngModel)]="selectedRecipeGroup" optionLabel="label"></p-dropdown></form-vr>
-  <form-vr label="Recipe name"> <p-dropdown scrollHeight="400px" [options]="recipesOfSelectedGroup" [(ngModel)]="selectedRecipe" optionLabel="label"></p-dropdown></form-vr>
+  <form-vr label="Recipe name">
+    <div style="position: relative;">
+      <div [routerLink]="['/recipe-search']"
+        style="position: absolute; z-index: 1; left: -0.9rem; top: -0.6rem;">
+          <i class="pi pi-search" alt="search"></i>
+      </div>
+    </div>
+    <p-dropdown scrollHeight="400px" [options]="recipesOfSelectedGroup" [(ngModel)]="selectedRecipe" optionLabel="label"></p-dropdown></form-vr>
   <form-vr *ngIf="selectedRecipe != undefined" label="Quanitity" valueContainerClass="text-right"><rw-input defaultValue="{{selectedRecipe.quantityDisplay}}" [(editedValue)]="selectedRecipe.quantitySet"></rw-input></form-vr>
 </form-group>
 
