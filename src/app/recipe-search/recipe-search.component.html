@@ -2,11 +2,11 @@
 <h5 style="margin-bottom: 0.5em; display: block;">Search</h5>
 <span class="p-input-icon-left">
     <i class="pi pi-search"></i>
-    <input type="search" class="search" id="search"
+    <input type="search" class="search" id="search" autocomplete="off"
       pInputText [value]="value" (keyup)="doSearch( $any($event.target).value)" />
 </span>
 <div class="results">
-  <p-virtualScroller [value]="results" scrollHeight="35rem" [itemSize]="50">
+  <p-virtualScroller [value]="results" scrollHeight="min(70vh)" [itemSize]="50">
     <ng-template pTemplate="item" let-item>
       <div class="search-result-item" [routerLink]="['/recipe-calculator', {groupId:item.recipeGroupId, id:item.recipeId}]">        <div class="item-label"><i class="pi pi-shopping-bag"></i> {{item.recipeLabel}}</div>
         <div class="group-label">{{item.recipeGroupLabel}}</div>
