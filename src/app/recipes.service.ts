@@ -227,7 +227,11 @@ export class RecipesService {
           let item = itemsService.getItem(iId);
           ingredients[iId] = new RecipeItem(iId, item, r.ingredients[iId]);
         }
-        recipes[rId] = new Recipe(rgId, rId, r.name, ingredients, itemsService.getItem(r.result));
+        var resultItem = itemsService.getItem(r.result);
+        if (resultItem == null) {
+          throw new Error(`result item ${r.result} for recipe ${rId} not found`);
+        }
+        recipes[rId] = new Recipe(rgId, rId, r.name, ingredients, resultItem);
       }
       this.recipeGroups[rgId] = new RecipeGroup(rgId, rawData[rgId].name, recipes);
     }

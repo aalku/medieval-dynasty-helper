@@ -372,6 +372,21 @@
                 }
             }
         },
+        "potions": {
+          "name": "Potions and poisons",
+          "recipes":{
+            "potion-of-instant-healing-i": {
+              "ingredients": {
+                "wooden-vial": "1",
+                "broadleaf-plantain": "2",
+                "dandelion": "2",
+                "bucket-water": "0.1"
+              },
+              "name": "Potion of Instant Healing I",
+              "result": "potion-of-instant-healing-i"
+            }
+          }
+        },
 
         "misc": {
             "name": "Miscelaneous",
