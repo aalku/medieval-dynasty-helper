@@ -1,5 +1,5 @@
 {
-    "author": "The source for most of the data is MacaDeath at Discord",
+	"author": "The source for most of the data is MacaDeath at Discord",
     "data":{
         "cauldron-soups": {
             "name": "Food - Cauldron - Soups",
@@ -416,7 +416,7 @@
                     "result": "animal-feed"
                 }
             }
-        }
+        },
 		"sewing-wheel": {
 			"name": "Sewing - Spinning Wheel",
 			"recipes": {
@@ -424,18 +424,18 @@
 					"ingredients": {
 						"flax-stalk": "10"
 					},
-					"name": "Linen Thread"
+					"name": "Linen Thread",
 					"result": "linen thread"
 				},
 				"Wool Thread": {
 					"ingredients": {
 						"wool": "8"
-					}
-					"name": "Wool Thread"
+					},
+					"name": "Wool Thread",
 					"result": "wool thread"
 				}
 			}
-		}	
+		},	
 		"sewing-loom": {
 			"name": "Sewing - Loom",
 			"recipes": {
@@ -443,28 +443,28 @@
 					"ingredients": {
 						"linen-thread": "1"
 					},
-					"name": "Linen Fabric"
+					"name": "Linen Fabric",
 					"result": "linen fabric"
 				},
 				"Wool Fabric": {
 					"ingredients": {
 						"wool-thread": "1"
 					},
-					"name": "Wool Fabric"
+					"name": "Wool Fabric",
 					"result": "wool fabric"
 				}
 			}
-		}
+		},
 		"sewing-clothing-hats": {
-			"name": "Sewing -  Clothing - Hats"
+			"name": "Sewing -  Clothing - Hats",
 			"recipes": {
 				"Hat": {
 					"ingredients": {
-						"linen-thread": "1"
-						"linen-fabric": "1"
+						"linen-thread": "1",
+						"linen-fabric": "1",
 						"wool-fabric": "1"
 					},
-					"name": "Hat"
+					"name": "Hat",
 					"result": "hat"
 				}
 			}
